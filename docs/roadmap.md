@@ -2,7 +2,8 @@
 
 LinuxFeel for Mac is still an early prototype. Likely next steps include:
 
-- Focus-follows-mouse and auto-raise experiments
+- Focus-follows-mouse initial prototype hardening
+- Auto-raise experiments
 - Better middle-click paste heuristics and app compatibility checks
 - More battery profiles and broader hardware validation
 - Packaging and release automation once the basics settle down
