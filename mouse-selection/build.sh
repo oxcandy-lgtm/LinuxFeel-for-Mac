@@ -7,6 +7,7 @@ clang \
   "$ROOT_DIR/selection_paste.c" \
   -Wall \
   -Wextra \
+  -Werror \
   -O2 \
   -framework ApplicationServices \
   -framework CoreFoundation \

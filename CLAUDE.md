@@ -14,11 +14,16 @@ Linux-like mouse, clipboard, and power behavior on Apple hardware.
 
 ## Build and test
 
-- Build middle-click paste helper: `./mouse-selection/build.sh`
-- Build battery helper: `./battery/build.sh`
-- If `shellcheck` is installed, run it on any changed shell scripts.
-- Before committing, run `git status --short`, inspect `git diff`, and search
-  changed files for secrets and private identifiers.
+Run the standard local checks before opening a PR:
+
+```sh
+./scripts/public-surface-scrub.sh
+find . -type f -name '*.sh' -not -path './.git/*' -not -path '*/.build/*' -print0 | xargs -0 -n1 sh -n
+./mouse-selection/build.sh
+./battery/build.sh
+```
+
+Before committing, run `git status --short` and inspect `git diff`.
 
 ## Code style
 

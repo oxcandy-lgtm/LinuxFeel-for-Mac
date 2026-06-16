@@ -7,6 +7,7 @@ clang \
   "$ROOT_DIR/mac_charge_limiter.c" \
   -Wall \
   -Wextra \
+  -Werror \
   -O2 \
   -framework IOKit \
   -framework CoreFoundation \
