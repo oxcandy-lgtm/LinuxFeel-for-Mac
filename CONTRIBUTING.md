@@ -19,7 +19,15 @@ Thanks for helping improve LinuxFeel for Mac.
 
 ## Before opening a PR
 
-- Run the relevant build scripts.
+- Run the standard local checks:
+
+```sh
+./scripts/public-surface-scrub.sh
+find . -type f -name '*.sh' -not -path './.git/*' -not -path '*/.build/*' -print0 | xargs -0 -n1 sh -n
+./mouse-selection/build.sh
+./battery/build.sh
+```
+
 - Inspect `git diff`.
 - Search the changed files for secrets, private identifiers, and private
   instructions.

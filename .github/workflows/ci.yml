@@ -4,12 +4,25 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Public surface scrub
+        run: ./scripts/public-surface-scrub.sh
+
+      - name: Shell syntax
+        run: |
+          find . -type f -name '*.sh' \
+            -not -path './.git/*' \
+            -not -path '*/.build/*' \
+            -print0 | xargs -0 -n1 sh -n
 
       - name: Build mouse-selection
         run: ./mouse-selection/build.sh
