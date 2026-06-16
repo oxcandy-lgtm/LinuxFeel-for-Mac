@@ -9,8 +9,8 @@ Linux-like mouse, clipboard, and power behavior on Apple hardware.
 
 - `mouse-selection/`: middle-click paste and drag-to-copy helper
 - `battery/`: battery charge-limit helper
-- Focus-follows-mouse / auto-raise stays planned unless it is explicitly
-  implemented and documented
+- `focus/`: initial focus-follows-mouse helper
+- Auto-raise stays planned unless it is explicitly implemented and documented
 
 ## Build and test
 
@@ -21,6 +21,7 @@ Run the standard local checks before opening a PR:
 find . -type f -name '*.sh' -not -path './.git/*' -not -path '*/.build/*' -print0 | xargs -0 -n1 sh -n
 ./mouse-selection/build.sh
 ./battery/build.sh
+./focus/build.sh
 ```
 
 Before committing, run `git status --short` and inspect `git diff`.
@@ -38,6 +39,7 @@ Before committing, run `git status --short` and inspect `git diff`.
   Monitoring on some macOS versions.
 - The battery helper needs administrator privileges because it writes SMC
   charge-limit settings.
+- The focus helper needs Accessibility permission to request focus changes.
 - Document any new launchd, background, or permission behavior in the relevant
   README.
 

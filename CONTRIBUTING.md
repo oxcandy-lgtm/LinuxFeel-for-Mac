@@ -26,6 +26,7 @@ Thanks for helping improve LinuxFeel for Mac.
 find . -type f -name '*.sh' -not -path './.git/*' -not -path '*/.build/*' -print0 | xargs -0 -n1 sh -n
 ./mouse-selection/build.sh
 ./battery/build.sh
+./focus/build.sh
 ```
 
 - Inspect `git diff`.

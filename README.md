@@ -13,7 +13,8 @@ Linux-style desktop behaviors on Apple hardware.
 
 - Middle-click paste: implemented in `mouse-selection/`
 - Battery protection helper: implemented in `battery/`
-- Focus-follows-mouse / auto-raise: planned
+- Focus-follows-mouse: initial experimental prototype in `focus/`
+- Auto-raise: planned
 
 ## macOS Permissions
 
@@ -22,6 +23,8 @@ Linux-style desktop behaviors on Apple hardware.
 - On some macOS releases, Input Monitoring may also be required for event taps.
 - `battery` needs administrator privileges because it writes SMC charge-limit
   settings.
+- `focus` needs Accessibility permission to focus apps and windows under the
+  pointer.
 
 See [docs/permissions.md](docs/permissions.md) for more detail.
 
@@ -32,6 +35,7 @@ From the repo root:
 ```sh
 ./mouse-selection/build.sh
 ./battery/build.sh
+./focus/build.sh
 ```
 
 The binaries are written under each folder's `.build/release/` directory.
@@ -63,6 +67,18 @@ Remove the daemon:
 sudo ./battery/uninstall-daemon.sh
 ```
 
+Focus-follows-mouse helper:
+
+```sh
+./focus/install-launch-agent.sh
+```
+
+Remove the focus helper:
+
+```sh
+./focus/uninstall-launch-agent.sh
+```
+
 ## Security and Privacy
 
 This repository is public and should stay free of secrets, private
@@ -80,6 +96,7 @@ and use GitHub Security Advisories when available.
 - [SECURITY.md](SECURITY.md)
 - [docs/permissions.md](docs/permissions.md)
 - [docs/roadmap.md](docs/roadmap.md)
+- [focus/README.md](focus/README.md)
 
 ## License
 

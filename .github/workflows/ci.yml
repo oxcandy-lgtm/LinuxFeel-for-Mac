@@ -29,3 +29,6 @@ jobs:
 
       - name: Build battery
         run: ./battery/build.sh
+
+      - name: Build focus
+        run: ./focus/build.sh

@@ -16,6 +16,13 @@
 - The current prototype is hardware-specific and should be reviewed before
   enabling a persistent LaunchDaemon on a machine you have not tested.
 
+## focus
+
+- Accessibility is required so the helper can request focus for apps and
+  windows under the pointer.
+- The helper runs as a per-user LaunchAgent and does not require root.
+- Review the behavior before enabling it as a login helper.
+
 ## General notes
 
 - Grant permissions to the app that actually launches the helper.
