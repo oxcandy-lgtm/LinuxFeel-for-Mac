@@ -47,13 +47,19 @@ Middle-click paste:
 Battery protection helper:
 
 ```sh
+sudo ./battery/install-home-daemon.sh
+```
+
+The default persistent install is `desk`. To opt into CHLS-only `home` mode on
+supported hardware:
+
+```sh
 sudo ./battery/install-home-daemon.sh home
 ```
 
-Other battery modes:
+Remove the daemon:
 
 ```sh
-sudo ./battery/install-home-daemon.sh desk
 sudo ./battery/uninstall-daemon.sh
 ```
 

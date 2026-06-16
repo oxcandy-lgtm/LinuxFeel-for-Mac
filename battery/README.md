@@ -48,16 +48,16 @@ Travel mode allows charging to 100%.
 
 ## Keep After Reboot
 
-Install the default home mode:
+Install the default desk mode:
 
 ```sh
 sudo ./install-home-daemon.sh
 ```
 
-Install desk mode instead:
+Install CHLS-only home mode:
 
 ```sh
-sudo ./install-home-daemon.sh desk
+sudo ./install-home-daemon.sh home
 ```
 
 Remove the daemon and restore 100% charging:
@@ -68,7 +68,10 @@ sudo ./uninstall-daemon.sh
 
 ## Current Behavior
 
-Home mode watches the battery and switches between 75% and 65% limits:
+Desk mode is the default persistent choice and keeps the limit at 80%.
+
+Home mode is CHLS-only. It watches the battery and switches between 75% and 65%
+limits:
 
 - 60% or below: switch back to 75%
 - 75% or above: switch down to 65%
@@ -86,4 +89,6 @@ zero. Use `status` or `read-key` to inspect the actual limit and SMC values.
 - SMC writes require root privileges.
 - Shutdown and deep sleep can let the battery drift above the requested limit.
 - macOS updates may change SMC behavior.
+- The installer refuses unsupported `home` installs before any plist is
+  written or bootstrapped.
 - Review before enabling a persistent daemon on hardware you have not tested.

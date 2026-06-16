@@ -9,9 +9,10 @@
 /*
  * Minimal Apple Silicon charge limiter.
  *
- * SMC access follows the public shape used by MIT-licensed tools such as
- * SMCKit/bclm. On Apple Silicon, CHWA = 1 means 80% limit and CHWA = 0 means
- * normal 100% charging. Writing SMC keys requires root.
+ * This implementation is original and uses the public SMC/IOKit interface
+ * shape that community tools also target. On Apple Silicon, CHWA = 1 means
+ * 80% limit and CHWA = 0 means normal 100% charging. Writing SMC keys
+ * requires root.
  */
 
 typedef struct {

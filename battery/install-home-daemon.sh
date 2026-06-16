@@ -7,19 +7,47 @@ LABEL="org.linuxfeel.mac-charge-limiter"
 LEGACY_LABEL="local.mac-charge-limiter"
 PLIST="/Library/LaunchDaemons/$LABEL.plist"
 LEGACY_PLIST="/Library/LaunchDaemons/$LEGACY_LABEL.plist"
-MODE="${1:-home}"
+MODE="${1:-desk}"
+
+cleanup_existing_install() {
+  launchctl disable "system/$LABEL" >/dev/null 2>&1 || true
+  launchctl disable "system/$LEGACY_LABEL" >/dev/null 2>&1 || true
+  launchctl bootout system "$LEGACY_PLIST" >/dev/null 2>&1 || true
+  launchctl bootout system "$PLIST" >/dev/null 2>&1 || true
+  rm -f "$PLIST" "$LEGACY_PLIST"
+}
+
+mode_supported() {
+  case "$1" in
+    desk|travel)
+      if "$BIN" read-key CHLS >/dev/null 2>&1; then
+        return 0
+      fi
+      if "$BIN" read-key CHWA >/dev/null 2>&1; then
+        return 0
+      fi
+      return 1
+      ;;
+    home)
+      "$BIN" read-key CHLS >/dev/null 2>&1
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
 
 case "$MODE" in
   desk|home)
     ;;
   *)
-    echo "Usage: sudo ./battery/install-home-daemon.sh [desk|home]" >&2
+    echo "Usage: sudo ./battery/install-home-daemon.sh [desk|home] (default: desk)" >&2
     exit 1
     ;;
 esac
 
 if [ "$(id -u)" -ne 0 ]; then
-  echo "Run with sudo: sudo ./battery/install-home-daemon.sh [desk|home]" >&2
+  echo "Run with sudo: sudo ./battery/install-home-daemon.sh [desk|home] (default: desk)" >&2
   exit 1
 fi
 
@@ -27,10 +55,17 @@ if [ ! -x "$BIN" ]; then
   "$ROOT_DIR/build.sh"
 fi
 
-launchctl disable "system/$LABEL" >/dev/null 2>&1 || true
-launchctl disable "system/$LEGACY_LABEL" >/dev/null 2>&1 || true
-launchctl bootout system "$LEGACY_PLIST" >/dev/null 2>&1 || true
-launchctl bootout system "$PLIST" >/dev/null 2>&1 || true
+if ! mode_supported "$MODE"; then
+  cleanup_existing_install
+  if [ "$MODE" = "home" ]; then
+    echo "Home mode requires CHLS on this Mac, so no LaunchDaemon was installed." >&2
+  else
+    echo "Requested battery mode '$MODE' is not supported on this Mac." >&2
+  fi
+  exit 1
+fi
+
+cleanup_existing_install
 
 cat > "$PLIST" <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
