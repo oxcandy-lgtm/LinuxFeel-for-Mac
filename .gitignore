@@ -1,0 +1,14 @@
+.DS_Store
+.build/
+**/.build/
+*.o
+*.a
+*.dSYM/
+*.log
+*.err
+*.tmp
+*.swp
+*.swo
+.vscode/
+.idea/
+DerivedData/
