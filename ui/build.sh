@@ -10,7 +10,7 @@ MACOS_DIR="$CONTENTS_DIR/MacOS"
 rm -rf "$APP_DIR"
 mkdir -p "$MACOS_DIR"
 
-swiftc \
+xcrun swiftc \
   "$ROOT_DIR/LinuxFeelControlCenter.swift" \
   -emit-executable \
   -O \

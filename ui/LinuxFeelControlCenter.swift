@@ -1,14 +1,12 @@
 import AppKit
 import Foundation
 
-private let appDelegate = LinuxFeelControlCenterAppDelegate()
-
 @main
 enum LinuxFeelControlCenterMain {
     static func main() {
         let app = NSApplication.shared
         app.setActivationPolicy(.regular)
-        app.delegate = appDelegate
+        app.delegate = LinuxFeelControlCenterAppDelegate()
         app.run()
     }
 }
@@ -76,7 +74,7 @@ final class LinuxFeelControlCenterViewController: NSViewController {
         let stackView = NSStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.orientation = .vertical
-        stackView.alignment = .fill
+        stackView.alignment = .leading
         stackView.spacing = 18
 
         contentView.addSubview(stackView)
@@ -90,11 +88,10 @@ final class LinuxFeelControlCenterViewController: NSViewController {
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
 
-            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
-            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.contentView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.contentView.trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.contentView.topAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.contentView.widthAnchor),
 
             stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 24),
             stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -24),
@@ -216,7 +213,7 @@ final class HelperCardView: CardView {
         openReadmeButton.onClick = { [helper] in
             let url = RepositoryLocator.rootURL.appendingPathComponent(helper.readmeRelativePath)
             guard FileManager.default.fileExists(atPath: url.path) else {
-                NSBeep()
+                NSApplication.shared.beep()
                 return
             }
             NSWorkspace.shared.open(url)
@@ -230,7 +227,7 @@ final class HelperCardView: CardView {
     }
 }
 
-private struct HelperSection {
+struct HelperSection {
     let name: String
     let summary: String
     let statusNote: String
@@ -326,7 +323,7 @@ private enum RepositoryLocator {
     }
 }
 
-final class CardView: NSView {
+class CardView: NSView {
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         translatesAutoresizingMaskIntoConstraints = false
@@ -471,7 +468,7 @@ private func makeVerticalStack(spacing: CGFloat) -> NSStackView {
     let stack = NSStackView()
     stack.translatesAutoresizingMaskIntoConstraints = false
     stack.orientation = .vertical
-    stack.alignment = .fill
+    stack.alignment = .leading
     stack.spacing = spacing
     return stack
 }
