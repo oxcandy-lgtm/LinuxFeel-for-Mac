@@ -14,6 +14,7 @@ Linux-style desktop behaviors on Apple hardware.
 - Middle-click paste: implemented in `mouse-selection/`
 - Battery protection helper: implemented in `battery/`
 - Focus-follows-mouse: initial experimental prototype in `focus/`
+- Control Center UI: manual launch prototype in `ui/`
 - Auto-raise: planned
 
 ## macOS Permissions
@@ -36,9 +37,16 @@ From the repo root:
 ./mouse-selection/build.sh
 ./battery/build.sh
 ./focus/build.sh
+./ui/build.sh
 ```
 
-The binaries are written under each folder's `.build/release/` directory.
+The helper binaries are written under each folder's `.build/release/`
+directory. The Control Center app bundle is written under `ui/.build/release/`.
+To launch it after building:
+
+```sh
+open ui/.build/release/LinuxFeelControlCenter.app
+```
 
 ## Install
 
@@ -97,6 +105,7 @@ and use GitHub Security Advisories when available.
 - [docs/permissions.md](docs/permissions.md)
 - [docs/roadmap.md](docs/roadmap.md)
 - [focus/README.md](focus/README.md)
+- [ui/README.md](ui/README.md)
 
 ## License
 

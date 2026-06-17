@@ -23,6 +23,12 @@
 - The helper runs as a per-user LaunchAgent and does not require root.
 - Review the behavior before enabling it as a login helper.
 
+## ui
+
+- The Control Center UI does not request special permissions.
+- It only copies commands and opens local docs.
+- It does not start or stop helpers automatically.
+
 ## General notes
 
 - Grant permissions to the app that actually launches the helper.
