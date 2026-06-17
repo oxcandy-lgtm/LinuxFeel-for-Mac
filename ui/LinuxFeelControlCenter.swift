@@ -1,16 +1,6 @@
 import AppKit
 import Foundation
 
-@main
-enum LinuxFeelControlCenterMain {
-    static func main() {
-        let app = NSApplication.shared
-        app.setActivationPolicy(.regular)
-        app.delegate = LinuxFeelControlCenterAppDelegate()
-        app.run()
-    }
-}
-
 final class LinuxFeelControlCenterAppDelegate: NSObject, NSApplicationDelegate {
     private var windowController: LinuxFeelControlCenterWindowController?
 
@@ -213,7 +203,7 @@ final class HelperCardView: CardView {
         openReadmeButton.onClick = { [helper] in
             let url = RepositoryLocator.rootURL.appendingPathComponent(helper.readmeRelativePath)
             guard FileManager.default.fileExists(atPath: url.path) else {
-                NSApplication.shared.beep()
+                NSSound.beep()
                 return
             }
             NSWorkspace.shared.open(url)
@@ -303,7 +293,7 @@ struct HelperSection {
     ]
 }
 
-private struct CommandRow {
+struct CommandRow {
     let title: String
     let command: String
 }
@@ -495,3 +485,9 @@ private func copyText(_ text: String) {
     NSPasteboard.general.clearContents()
     NSPasteboard.general.setString(text, forType: .string)
 }
+
+let linuxFeelControlCenterAppDelegate = LinuxFeelControlCenterAppDelegate()
+let linuxFeelControlCenterApplication = NSApplication.shared
+linuxFeelControlCenterApplication.setActivationPolicy(.regular)
+linuxFeelControlCenterApplication.delegate = linuxFeelControlCenterAppDelegate
+linuxFeelControlCenterApplication.run()
