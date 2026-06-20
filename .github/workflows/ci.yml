@@ -32,3 +32,6 @@ jobs:
 
       - name: Build focus
         run: ./focus/build.sh
+
+      - name: Build ui
+        run: ./ui/build.sh

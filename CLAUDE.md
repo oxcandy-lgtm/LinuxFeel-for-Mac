@@ -10,6 +10,7 @@ Linux-like mouse, clipboard, and power behavior on Apple hardware.
 - `mouse-selection/`: middle-click paste and drag-to-copy helper
 - `battery/`: battery charge-limit helper
 - `focus/`: initial focus-follows-mouse helper
+- `ui/`: manual Control Center surface for helper inspection and command copying
 - Auto-raise stays planned unless it is explicitly implemented and documented
 
 ## Build and test
@@ -22,6 +23,7 @@ find . -type f -name '*.sh' -not -path './.git/*' -not -path '*/.build/*' -print
 ./mouse-selection/build.sh
 ./battery/build.sh
 ./focus/build.sh
+./ui/build.sh
 ```
 
 Before committing, run `git status --short` and inspect `git diff`.
@@ -40,6 +42,8 @@ Before committing, run `git status --short` and inspect `git diff`.
 - The battery helper needs administrator privileges because it writes SMC
   charge-limit settings.
 - The focus helper needs Accessibility permission to request focus changes.
+- The Control Center UI does not request special permissions; it only copies
+  commands and opens local docs.
 - Document any new launchd, background, or permission behavior in the relevant
   README.
 
